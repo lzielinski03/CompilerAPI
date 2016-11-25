@@ -1,20 +1,23 @@
 var express = require('express')
+var cors = require('cors')
 var bodyParser = require('body-parser')
-var compiler = require('./json-to-reactJSX')()
+var compiler = require('./json-to-reactJSX')
 var fs = require('fs')
 var Stream = require('stream')
 var archiver = require('archiver')
 
 var app = express()
+app.use(cors());
 app.use(bodyParser.json())
 
 app.post('/compile', function(req, res) {
-	res.setHeader("Content-Type", 'application/x-compressed-tar')
-
+	console.log('\ncompile request')
+	
 	let dataTree = req.body
-	let reactCode = compiler.toReact(dataTree)
+	let comp = compiler()
+	let reactCode = comp.toReact(dataTree)
 
-	let archive = archiver.create('zip', {store: true})
+	let archive = archiver.create('zip')
 	let transform = new Stream.Transform()
 	let template = fs.createReadStream(__dirname + '/tmp/template.js')
 
@@ -27,6 +30,8 @@ app.post('/compile', function(req, res) {
 	archive.directory(__dirname + '/proyect_name', '')
 	archive.append(template.pipe(transform), {name: 'src/pages/home.js'})
 	archive.finalize();
+	
+	res.setHeader("Content-Type", 'application/x-compressed-tar')
 	archive.pipe(res);
 })
 

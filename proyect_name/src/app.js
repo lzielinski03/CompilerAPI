@@ -24,8 +24,7 @@ let store = finalCreateStore(reducer)
 /*************************************/
 import Box from './components/box'
 import Subtitle from './components/subtitle'
-import createFragment from 'react-addons-create-fragment'
-
+/*
 const childs = createFragment({
 	'box': React.createElement(Box, {'default': true}),
 	'subtitle': React.createElement(Subtitle, {'value': 'hola'})
@@ -86,7 +85,7 @@ function buildTree(data) {
 		console.log('element ', data.type)
 		return React.createElement(elements[data.type], {'value': 'hola'})
 	}
-}
+}*/
 
 //const Root = components['root']
 //const Root = buildTree(data)

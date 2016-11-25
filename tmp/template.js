@@ -8,7 +8,8 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import BoxLayer from './../containers/box-layer/box-layer'
 import Title from './../components/title'
 import Subtitle from './../components/subtitle'
-
+import Button from './../components/button'
+import FileDownload from './../containers/download-widget/file-download'
 import Layer from './../containers/layer/layer'
 import LayerProperties from './../containers/layer/layer-properties'
 
